@@ -1,0 +1,41 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: token_vesting
+    network: mainnet
+    source:
+      address: "0xeaEd594B5926A7D5FBBC61985390BaAf936a6b8d"
+      abi: token_vesting
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.2
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - onLock
+        - onMigrate
+        - onRelock
+        - onSplitLock
+        - onTransferLock
+        - onWithdraw
+      abis:
+        - name: token_vesting
+          file: ./abis/token_vesting.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: onLock(uint256,address,address,uint256,uint256,uint256)
+          handler: handleonLock
+        - event: onMigrate(uint256,uint256)
+          handler: handleonMigrate
+        - event: onRelock(uint256,uint256)
+          handler: handleonRelock
+        - event: onSplitLock(uint256,uint256,uint256)
+          handler: handleonSplitLock
+        - event: onTransferLock(uint256,uint256,address,address)
+          handler: handleonTransferLock
+        - event: onWithdraw(address,uint256)
+          handler: handleonWithdraw
+      file: ./src/mapping.ts
