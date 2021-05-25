@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: token_vesting
@@ -22,7 +22,7 @@ dataSources:
         - onWithdraw
       abis:
         - name: token_vesting
-          file: ./abis/token_vesting.json
+          file: token_vesting\abis\token_vesting.json
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
@@ -38,4 +38,4 @@ dataSources:
           handler: handleonTransferLock
         - event: onWithdraw(address,uint256)
           handler: handleonWithdraw
-      file: ./src/mapping.ts
+      file: token_vesting\token_vesting.wasm
